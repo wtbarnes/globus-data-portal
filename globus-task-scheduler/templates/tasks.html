@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Tasks{% endblock %}
+{% block content %}
+<h1>My Scheduled Transfers</h1>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Source</th>
+        <th scope="col">Target</th>
+        <th scope="col">Next Scheduled Task</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for t in tasks %}
+      <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td>{{ t.source }}</td>
+        <td>{{ t.target }}</td>
+        <td>{{ t.date }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
