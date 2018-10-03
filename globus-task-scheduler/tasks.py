@@ -10,7 +10,7 @@ bp = Blueprint('tasks', __name__, url_prefix='/tasks')
 
 
 @bp.route('/list')
-def tasks():
+def list_tasks():
     tasks = []
     t = Transfer()
     for j in scheduler.get_jobs():
@@ -18,5 +18,10 @@ def tasks():
             'source': t.get_endpoint_name_from_id(j.args[0]),
             'target': t.get_endpoint_name_from_id(j.args[1]),
             'date': j.next_run_time.strftime('%H:%M:%S %m/%d/%Y')})
-    return render_template('tasks.html', tasks=tasks)
+    return render_template('list_tasks.html', tasks=tasks)
+
+
+@bp.route('/add', method=['GET', 'POST'])
+def add_task():
+    return render_template('add_task.html', )
 
