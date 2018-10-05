@@ -1,4 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Add Task{% endblock %}
 {% block content %}
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <h2>Source</h2>
+    <p>{{ form.source() }}</p>
+    <h2>Target</h2>
+    <p>{{ form.target() }}</p>
+    <h2>Source File</h2>
+    <p>{{ form.source_file() }}</p>
+    <h2>Target File</h2>
+    <p>{{ form.target_file() }}</p>
+    <h2>Date</h2>
+    <p>{{ form.date() }}</p>
+    <p>{{ form.submit() }}</p>
+</form>
 {% endblock %}
