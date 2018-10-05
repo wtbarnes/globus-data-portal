@@ -29,14 +29,20 @@ def list_tasks():
 @bp.route('/add', methods=['GET', 'POST'])
 def add_task():
     form = AddTaskForm(request.form)
+    t = Transfer()
+    endpoints = [(e['id'], e['display_name']) for e in t.endpoints]
+    form.source.choices = endpoints
+    form.target.choices = endpoints
+    task_added = False
     if form.validate_on_submit():
         scheduler.add_date_job(
-            datetime.datetime.strptime(form.date.data, '%m/%d/%Y %H:%M:%S'),
+            form.date.data,
             form.source.data,
             form.target.data,
             [{'source': form.source_file.data,
                 'target': form.target_file.data}, ],)
-    return render_template('add_task.html', form=form)
+        task_added = True
+    return render_template('add_task.html', form=form, task_added=task_added)
 
 
 @bp.route('/remove-<task_id>')
