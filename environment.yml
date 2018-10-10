@@ -1,0 +1,10 @@
+name: globus-task-scheduler
+dependencies:
+- pip:
+  - apscheduler
+  - flask
+  - flask-apscheduler
+  - flask-wtf
+  - globus-sdk
+  - sqlalchemy
+  - wtforms
