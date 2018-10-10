@@ -1,11 +1,12 @@
 """
 Create a Globus transfer from one endpoint to another
 """
+import os
+
 import globus_sdk
 
-CLIENT = 'ca4293f1-0bec-4178-8622-ace2f64ca8c2'
-# CLIENT_SECRET = '9AH+OuLutpTvMtFTfyM3/ADoBqSKZSenaXaqtbqNGCg='
-REFRESH_TOKEN = 'Agk1GPPXKPQK1gxnoGJ9wyaeN1aWar8z3kxepyQad1004k3JXwHVUm8oYkdWrq6WM4xPXaVkl5Dw9VW4zQgV3G9YBa2yd'
+CLIENT = os.environ['GLOBUS_PORTAL_CLIENT']
+REFRESH_TOKEN = os.environ['GLOBUS_PORTAL_REFRESH_TOKEN']
 
 
 class Transfer(object):
