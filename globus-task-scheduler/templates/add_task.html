@@ -3,33 +3,43 @@
 {% block content %}
 {% if task_added %}
 <div class="alert alert-success" role="alert">
-    Transfer added to scheduler!d
+    Transfer added to scheduler!
 </div>
+{% endif %}
+{% if form.errors %}
+{{ form.errors }}
 {% endif %}
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
+    <!-- Files and endpoints -->
+    {% for field in form %}
+    {% if field.id in ('source', 'target', 'source_file', 'target_file') %}
     <div class="form-group">
-        {{ form.source.label }}
-        {{ form.source(class="form-control") }}
+        <label for="{{ field.id }}">{{ field.description }}</label>
+        {{ field(class="form-control") }}
     </div>
+    {% endif %}
+    {% endfor %}
+    <!-- Single Date Form -->
     <div class="form-group">
-        {{ form.target.label }}
-        {{ form.target(class="form-control") }}
-    </div>
-    <div class="form-group">
-        {{ form.source_file.label }}
-        {{ form.source_file(class="form-control") }}
-    </div>
-    <div class="form-group">
-        {{ form.target_file.label }}
-        {{ form.target_file(class="form-control") }}
-    </div>
-    <div class="form-group">
-        {{ form.date.label }}
+        <label for="{{ form.date.id }}">{{ form.date.description }}</label>
         {{ form.date(class="form-control") }}
         <small id="{{ form.date.id }}" class="form-text text-muted">Use format MM/DD/YYYY hh:mm:ss</small>
     </div>
-    <!--<p>{{ form.submit() }}</p>-->
+    <!-- Cron Form -->
+    <h3>Cron Task</h3>
+    <div class="form-check">
+        {{ form.use_cron(class="form-check-input") }}
+        <label class="form-check-label" for="{{ form.use_cron.id }}">{{ form.use_cron.description }}</label>
+    </div>
+    {% for field in form %}
+    {% if field.id in ('year','month','day','week','day_of_week','hour','minute','second') %}
+    <div class="form-group">
+        <label for="{{ field.id }}">{{ field.description }}</label>
+        {{ field(class="form-control") }}
+    </div>
+    {% endif %}
+    {% endfor %}
     <button type="submit" class="btn btn-primary" id="{{ form.submit.id }}" name="{{ form.submit.name }}">{{ form.submit.description }}</button>
 </form>
 {% endblock %}
